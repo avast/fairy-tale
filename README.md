@@ -1,1 +1,1 @@
-# FP Toolbox
+# Scala FP Toolbox
