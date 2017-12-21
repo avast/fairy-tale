@@ -1,7 +1,7 @@
 import Dependencies._
 
 lazy val root = (project in file(".")).settings(
-  name := "fp-toolbox",
+  name := "scala-fp-toolbox",
   publish := {},
   publishLocal := {}
 ).aggregate(core, monix)
@@ -9,25 +9,25 @@ lazy val root = (project in file(".")).settings(
 lazy val core = (project in file("core")).settings(
   commonSettings,
   scalaSettings,
-  name := "fp-toolbox-core"
+  name := "scala-fp-toolbox-core"
 )
 
 lazy val monix = (project in file("monix")).settings(
   commonSettings,
   scalaSettings,
-  name := "fp-toolbox-monix"
+  name := "scala-fp-toolbox-monix"
 ).dependsOn(core)
 
 lazy val commonSettings = Seq(
   organization := "com.avast",
   version := sys.env.getOrElse("TRAVIS_TAG", "0.1-SNAPSHOT"),
   description := "Toolbox for functional programming in Scala",
-  licenses += "MIT" -> url("https://github.com/avast/fp-toolbox/blob/master/LICENSE"),
+  licenses += "MIT" -> url("https://github.com/avast/scala-fp-toolbox/blob/master/LICENSE"),
 
   publishArtifact in Test := false,
 
   bintrayOrganization := Some("avast"),
-  bintrayPackage := "fp-toolbox",
+  bintrayPackage := "scala-fp-toolbox",
   bintrayPackageLabels := Seq("fp", "functional programming", "scala", "cats", "toolbox", "utils"),
 
   pomExtra :=

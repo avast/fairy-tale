@@ -5,4 +5,4 @@ jdk:
 - oraclejdk8
 skip_cleanup: true
 after_success:
-  - test $TRAVIS_PULL_REQUEST == "false" && test "$TRAVIS_TAG" != "" && test $TRAVIS_REPO_SLUG == "avast/fp-toolbox" && sbt publish
+  - test $TRAVIS_PULL_REQUEST == "false" && test "$TRAVIS_TAG" != "" && test $TRAVIS_REPO_SLUG == "avast/scala-fp-toolbox" && sbt publish
