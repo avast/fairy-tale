@@ -20,7 +20,7 @@ lazy val monix = (project in file("monix")).settings(
 
 lazy val commonSettings = Seq(
   organization := "com.avast",
-  version := sys.env.getOrElse("TRAVIS_TAG", "0.1-SNAPSHOT"),
+  version := sys.env.getOrElse("VERSION", "0.1-SNAPSHOT"),
   description := "Toolbox for functional programming in Scala",
   licenses += "MIT" -> url("https://github.com/avast/scala-fp-toolbox/blob/master/LICENSE"),
 
