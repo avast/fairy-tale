@@ -4,19 +4,26 @@ lazy val root = (project in file(".")).settings(
   name := "fairy-tale",
   publish := {},
   publishLocal := {}
-).aggregate(core, monix)
+).aggregate(core, metrics, monix, slf4j)
 
 lazy val core = (project in file("core")).settings(
   commonSettings,
   scalaSettings,
   name := "fairy-tale-core",
   libraryDependencies ++= Seq(
-    metrics,
-    slf4j,
-    utilsDone,
-    metricsJmx % Test
+    utilsDone
   )
 )
+
+lazy val metrics = (project in file("metrics")).settings(
+  commonSettings,
+  scalaSettings,
+  name := "fairy-tale-metrics",
+  libraryDependencies ++= Seq(
+    metricsLibrary,
+    metricsJmx % Test
+  )
+).dependsOn(core)
 
 lazy val monix = (project in file("monix")).settings(
   commonSettings,
@@ -24,7 +31,16 @@ lazy val monix = (project in file("monix")).settings(
   name := "fairy-tale-monix",
   libraryDependencies ++= Seq(
     monixLibrary
-  ),
+  )
+).dependsOn(core)
+
+lazy val slf4j = (project in file("slf4j")).settings(
+  commonSettings,
+  scalaSettings,
+  name := "fairy-tale-slf4j",
+  libraryDependencies ++= Seq(
+    slf4jLibrary
+  )
 ).dependsOn(core)
 
 lazy val commonSettings = Seq(
