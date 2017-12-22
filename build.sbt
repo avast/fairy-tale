@@ -13,7 +13,8 @@ lazy val core = (project in file("core")).settings(
   libraryDependencies ++= Seq(
     metrics,
     slf4j,
-    utilsDone
+    utilsDone,
+    metricsJmx % Test
   )
 )
 
