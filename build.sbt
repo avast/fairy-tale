@@ -34,7 +34,7 @@ lazy val commonSettings = Seq(
   publishArtifact in Test := false,
 
   bintrayOrganization := Some("avast"),
-  bintrayPackage := "scala-fp-toolbox",
+  bintrayPackage := "fairy-tale",
   bintrayPackageLabels := Seq("fp", "functional programming", "scala", "cats", "toolbox", "utils", "finally tagless", "tagless final"),
 
   pomExtra :=
