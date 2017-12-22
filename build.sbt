@@ -11,6 +11,7 @@ lazy val core = (project in file("core")).settings(
   scalaSettings,
   name := "fairy-tale-core",
   libraryDependencies ++= Seq(
+    metrics,
     slf4j,
     utilsDone
   )
@@ -30,6 +31,8 @@ lazy val commonSettings = Seq(
   version := sys.env.getOrElse("VERSION", "0.1-SNAPSHOT"),
   description := "Toolbox for functional programming in Scala using the Finally Tagless approach.",
   licenses += "MIT" -> url("https://github.com/avast/fairy-tale/blob/master/LICENSE"),
+
+  resolvers += Resolver.jcenterRepo,
 
   publishArtifact in Test := false,
 

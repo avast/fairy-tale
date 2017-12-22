@@ -1,6 +1,7 @@
 import sbt._
 
 object Dependencies {
+  lazy val metrics = "com.avast.metrics" %% "metrics-scala" % "2.3.3"
   lazy val utilsDone = "com.avast.utils2" %% "utils-done" % "10.0.0"
 
   lazy val cats = "org.typelevel" %% "cats-core" % "0.9.0"
