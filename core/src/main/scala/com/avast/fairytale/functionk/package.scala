@@ -1,8 +1,5 @@
 package com.avast.fairytale
 
-import cats.arrow.FunctionK
-import cats.{Eval, Id}
-
 import scala.concurrent.{ExecutionContext, Future}
 
 package object functionk {
