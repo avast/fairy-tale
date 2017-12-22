@@ -36,6 +36,8 @@ lazy val commonSettings = Seq(
   resolvers += Resolver.jcenterRepo,
 
   publishArtifact in Test := false,
+  publishArtifact in(Compile, packageDoc) := false,
+  sources in(Compile, doc) := Seq.empty,
 
   bintrayOrganization := Some("avast"),
   bintrayPackage := "fairy-tale",
