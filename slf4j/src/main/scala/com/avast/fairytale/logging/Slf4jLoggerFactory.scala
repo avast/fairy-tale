@@ -1,4 +1,6 @@
-package com.avast.fairytale.logging;
+package com.avast.fairytale.logging
+
+import cats.Eval
 
 object Slf4jLoggerFactory extends LoggerFactory[Eval] {
 

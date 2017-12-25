@@ -1,4 +1,8 @@
-package com.avast.fairytale.logging;
+package com.avast.fairytale.logging
+
+import cats.Eval
+import com.avast.fairytale.logging.Slf4jLogger.formatMessage
+import com.avast.utils2.Done
 
 class Slf4jLogger(slf4j: org.slf4j.Logger) extends Logger[Eval] {
 
@@ -64,5 +68,12 @@ class Slf4jLogger(slf4j: org.slf4j.Logger) extends Logger[Eval] {
     }
     Done
   }
+
+}
+
+object Slf4jLogger {
+
+  private def formatMessage(parts: Seq[String]): String = parts.map(StringContext.treatEscapes).mkString("{}")
+  private def formatMessage(msg: Message): String = StringContext(msg.parts: _*).standardInterpolator(identity, msg.args)
 
 }
