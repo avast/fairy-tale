@@ -26,6 +26,4 @@ object LoggerFactory {
     override def mapK[F[_], G[_]](af: LoggerFactory[F])(fk: ~>[F, G]): LoggerFactory[G] = LoggerFactory.mapK(af)(fk)
   }
 
-  def slf4j: LoggerFactory[Eval] = Slf4jLoggerFactory
-
 }
