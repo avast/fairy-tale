@@ -1,4 +1,4 @@
-package com.avast.fairytale.id
+package com.avast.fairytale.generate
 
 import java.security.SecureRandom
 import java.util.UUID
