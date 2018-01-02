@@ -82,6 +82,6 @@ lazy val scalaSettings = Seq(
     mainecoonMacros,
     scalaTest
   ),
-  addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.4"),
-  addCompilerPlugin("org.scalameta" % "paradise" % "3.0.0-M10" cross CrossVersion.full)
+  addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.5"),
+  addCompilerPlugin("org.scalameta" % "paradise" % "3.0.0-M11" cross CrossVersion.full)
 )
