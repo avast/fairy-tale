@@ -4,7 +4,7 @@ lazy val root = (project in file(".")).settings(
   name := "fairy-tale",
   publish := {},
   publishLocal := {}
-).aggregate(core, metrics, monix, slf4j)
+).aggregate(core, metrics, monix, slf4j, testkit)
 
 lazy val core = (project in file("core")).settings(
   commonSettings,
