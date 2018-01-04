@@ -43,6 +43,12 @@ lazy val slf4j = (project in file("slf4j")).settings(
   )
 ).dependsOn(core)
 
+lazy val testkit = (project in file("testkit")).settings(
+  commonSettings,
+  scalaSettings,
+  name := "fairy-tale-testkit"
+).dependsOn(core)
+
 lazy val commonSettings = Seq(
   organization := "com.avast.fairytale",
   version := sys.env.getOrElse("VERSION", "0.1-SNAPSHOT"),
