@@ -4,7 +4,7 @@ lazy val root = (project in file(".")).settings(
   name := "fairy-tale",
   publish := {},
   publishLocal := {}
-).aggregate(core, metrics, monix, slf4j)
+).aggregate(core, metrics, monix, slf4j, testkit)
 
 lazy val core = (project in file("core")).settings(
   commonSettings,
@@ -41,6 +41,12 @@ lazy val slf4j = (project in file("slf4j")).settings(
   libraryDependencies ++= Seq(
     slf4jLibrary
   )
+).dependsOn(core)
+
+lazy val testkit = (project in file("testkit")).settings(
+  commonSettings,
+  scalaSettings,
+  name := "fairy-tale-testkit"
 ).dependsOn(core)
 
 lazy val commonSettings = Seq(
