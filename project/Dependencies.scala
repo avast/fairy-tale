@@ -8,7 +8,7 @@ object Dependencies {
 
   lazy val cats = "org.typelevel" %% "cats-core" % "1.0.1"
 
-  lazy val monixLibrary = "io.monix" %% "monix" % "3.0.0-M2"
+  lazy val monixLibrary = "io.monix" %% "monix" % "3.0.0-M3"
 
   lazy val slf4jLibrary = "org.slf4j" % "slf4j-api" % "1.7.25"
 
