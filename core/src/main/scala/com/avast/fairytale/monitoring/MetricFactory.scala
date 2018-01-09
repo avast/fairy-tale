@@ -23,9 +23,31 @@ object MetricFactory {
 
   def mapK[F[_], G[_]](originalFactory: MetricFactory[F])(fk: F ~> G): MetricFactory[G] = new MetricFactory[G] {
 
-    override def named(name: String): MetricFactory[G] = this.named(name)
+    private class Proxy(namedFactory: MetricFactory[F]) extends MetricFactory[G] {
+      override def named(name: String): MetricFactory[G] = MetricFactory.mapK(namedFactory.named(name))(fk)
 
-    override def named(name1: String, name2: String, restOfNames: String*): MetricFactory[G] = this.named(name1, name2, restOfNames: _*)
+      override def named(name1: String, name2: String, restOfNames: String*): MetricFactory[G] =
+        MetricFactory.mapK(namedFactory.named(name1, name2, restOfNames: _*))(fk)
+
+      override def meter(name: String): Meter[G] = FunctorK[Meter].mapK(namedFactory.meter(name))(fk)
+
+      override def counter(name: String): Counter[G] = FunctorK[Counter].mapK(namedFactory.counter(name))(fk)
+
+      override def timer(name: String): Timer[G] = FunctorK[Timer].mapK(namedFactory.timer(name))(fk)
+
+      override def histogram(name: String): Histogram[G] = FunctorK[Histogram].mapK(namedFactory.histogram(name))(fk)
+
+    }
+    
+    override def named(name: String): MetricFactory[G] = {
+      val namedFactory = originalFactory.named(name)
+      new Proxy(namedFactory)
+    }
+
+    override def named(name1: String, name2: String, restOfNames: String*): MetricFactory[G] = {
+      val namedFactory = originalFactory.named(name1, name2, restOfNames: _*)
+      new Proxy(namedFactory)
+    }
 
     override def meter(name: String): Meter[G] = FunctorK[Meter].mapK(originalFactory.meter(name))(fk)
 
