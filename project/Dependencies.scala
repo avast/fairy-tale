@@ -13,6 +13,7 @@ object Dependencies {
   lazy val slf4jLibrary = "org.slf4j" % "slf4j-api" % "1.7.25"
 
   lazy val simulacrum = "com.github.mpilquist" %% "simulacrum" % "0.11.0"
+  lazy val mainecoonCore = "com.kailuowang" %% "mainecoon-core" % "0.6.0"
   lazy val mainecoonMacros = "com.kailuowang" %% "mainecoon-macros" % "0.6.0"
 
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.4" % Test
