@@ -49,6 +49,8 @@ lazy val testkit = (project in file("testkit")).settings(
   name := "fairy-tale-testkit"
 ).dependsOn(core)
 
+val CompileTime = config("compile-time").hide
+
 lazy val commonSettings = Seq(
   organization := "com.avast.fairytale",
   version := sys.env.getOrElse("VERSION", "0.1-SNAPSHOT"),
@@ -64,6 +66,9 @@ lazy val commonSettings = Seq(
   bintrayOrganization := Some("avast"),
   bintrayPackage := "fairy-tale",
   bintrayPackageLabels := Seq("fp", "functional programming", "scala", "cats", "toolbox", "utils", "finally tagless", "tagless final"),
+
+  ivyConfigurations += CompileTime,
+  unmanagedClasspath in Compile ++= update.value.select(configurationFilter(CompileTime.name)),
 
   pomExtra :=
     <scm>
@@ -85,7 +90,8 @@ lazy val scalaSettings = Seq(
   libraryDependencies ++= Seq(
     cats,
     simulacrum,
-    mainecoonMacros,
+    mainecoonCore,
+    mainecoonMacros % CompileTime,
     scalaTest
   ),
   addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.5"),
