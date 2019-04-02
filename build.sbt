@@ -85,15 +85,16 @@ lazy val commonSettings = Seq(
 )
 
 lazy val scalaSettings = Seq(
-  scalaVersion := "2.12.4",
+  scalaVersion := "2.12.8",
   scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation", "-Xlint", "-Xfatal-warnings", "-Ywarn-value-discard"),
   libraryDependencies ++= Seq(
     cats,
+    catsEffect,
     simulacrum,
     mainecoonCore,
     mainecoonMacros % CompileTime,
     scalaTest
   ),
-  addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.5"),
+  addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.9"),
   addCompilerPlugin("org.scalameta" % "paradise" % "3.0.0-M11" cross CrossVersion.full)
 )
