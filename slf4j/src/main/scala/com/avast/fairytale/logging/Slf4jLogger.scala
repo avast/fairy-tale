@@ -1,68 +1,72 @@
 package com.avast.fairytale.logging
 
-import cats.Eval
+import cats.effect.Sync
 import com.avast.fairytale.logging.Slf4jLogger.formatMessage
 import com.avast.utils2.Done
 
-class Slf4jLogger(slf4j: org.slf4j.Logger) extends Logger[Eval] {
+import scala.language.higherKinds
 
-  override def error(msg: => Message): Eval[Done] = Eval.always {
+class Slf4jLogger[F[_]: Sync](slf4j: org.slf4j.Logger) extends Logger[F] {
+
+  private val F = Sync[F]
+
+  override def error(msg: => Message): F[Done] = F.delay {
     if (slf4j.isErrorEnabled) {
       slf4j.error(formatMessage(msg.parts), msg.args.map(_.toString): _*)
     }
     Done
   }
 
-  override def error(ex: Throwable, msg: => Message): Eval[Done] = Eval.always {
+  override def error(ex: Throwable, msg: => Message): F[Done] = F.delay {
     if (slf4j.isErrorEnabled) {
       slf4j.error(formatMessage(msg), ex)
     }
     Done
   }
 
-  override def warn(msg: => Message): Eval[Done] = Eval.always {
+  override def warn(msg: => Message): F[Done] = F.delay {
     if (slf4j.isWarnEnabled) {
       slf4j.warn(formatMessage(msg.parts), msg.args.map(_.toString): _*)
     }
     Done
   }
 
-  override def warn(ex: Throwable, msg: => Message): Eval[Done] = Eval.always {
+  override def warn(ex: Throwable, msg: => Message): F[Done] = F.delay {
     if (slf4j.isWarnEnabled) {
       slf4j.warn(formatMessage(msg), ex)
     }
     Done
   }
 
-  override def info(msg: => Message): Eval[Done] = Eval.always {
+  override def info(msg: => Message): F[Done] = F.delay {
     if (slf4j.isInfoEnabled) {
       slf4j.info(formatMessage(msg.parts), msg.args.map(_.toString): _*)
     }
     Done
   }
 
-  override def debug(msg: => Message): Eval[Done] = Eval.always {
+  override def debug(msg: => Message): F[Done] = F.delay {
     if (slf4j.isDebugEnabled) {
       slf4j.debug(formatMessage(msg.parts), msg.args.map(_.toString): _*)
     }
     Done
   }
 
-  override def debug(ex: Throwable, msg: => Message): Eval[Done] = Eval.always {
+  override def debug(ex: Throwable, msg: => Message): F[Done] = F.delay {
     if (slf4j.isDebugEnabled) {
       slf4j.debug(formatMessage(msg), ex)
     }
     Done
   }
 
-  override def trace(msg: => Message): Eval[Done] = Eval.always {
+  override def trace(msg: => Message): F[Done] = F.delay {
     if (slf4j.isTraceEnabled) {
       slf4j.trace(formatMessage(msg.parts), msg.args.map(_.toString): _*)
     }
     Done
   }
 
-  override def trace(ex: Throwable, msg: => Message): Eval[Done] = Eval.always {
+  override def trace(ex: Throwable, msg: => Message): F[Done] = F.delay {
     if (slf4j.isTraceEnabled) {
       slf4j.trace(formatMessage(msg), ex)
     }

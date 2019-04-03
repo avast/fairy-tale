@@ -1,9 +1,11 @@
 package com.avast.fairytale.logging
 
-import cats.Eval
+import cats.effect.Sync
 
-object Slf4jLoggerFactory extends LoggerFactory[Eval] {
+import scala.language.higherKinds
 
-  override def make(name: String): Logger[Eval] = new Slf4jLogger(org.slf4j.LoggerFactory.getLogger(name))
+class Slf4jLoggerFactory[F[_]: Sync] extends LoggerFactory[F] {
+
+  override def make(name: String): Logger[F] = new Slf4jLogger(org.slf4j.LoggerFactory.getLogger(name))
 
 }
