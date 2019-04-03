@@ -6,10 +6,10 @@ object Dependencies {
 
   lazy val utilsDone = "com.avast.utils2" %% "utils-done" % "10.0.0"
 
-  lazy val cats = "org.typelevel" %% "cats-core" % "1.6.0"
-  lazy val catsEffect = "org.typelevel" %% "cats-effect" % "1.2.0"
+  lazy val cats = "org.typelevel" %% "cats-core" % "1.5.0"
+  lazy val catsEffect = "org.typelevel" %% "cats-effect" % "0.10.1"
 
-  lazy val monixLibrary = "io.monix" %% "monix" % "3.0.0-RC2"
+  lazy val monixLibrary = "io.monix" %% "monix" % "3.0.0-RC1"
 
   lazy val slf4jLibrary = "org.slf4j" % "slf4j-api" % "1.7.26"
 
