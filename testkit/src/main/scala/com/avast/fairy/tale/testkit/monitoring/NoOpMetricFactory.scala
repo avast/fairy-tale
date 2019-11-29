@@ -22,6 +22,7 @@ class NoOpMetricFactory[F[_]: Sync] extends MetricFactory[F] {
 
   override def histogram(name: String): Histogram[F] = new NoOpHistogram
 
+  override def gauge(name: String): GaugeFactory[F] = new NoOpGaugeFactory
 }
 
 private class NoOpMeter[F[_]: Sync] extends Meter[F] {
@@ -66,4 +67,14 @@ private class NoOpHistogram[F[_]: Sync] extends Histogram[F] {
 
   override def update(value: Long): F[Done] = F.delay(Done)
 
+}
+
+private class NoOpGaugeFactory[F[_]: Sync] extends GaugeFactory[F] {
+  override def long: Gauge[F, Long] = new NoOpGauge
+
+  override def double: Gauge[F, Double] = new NoOpGauge
+}
+
+private class NoOpGauge[F[_]: Sync, T] extends Gauge[F, T] {
+  override def set(value: T): F[Done] = Sync[F].delay(Done)
 }

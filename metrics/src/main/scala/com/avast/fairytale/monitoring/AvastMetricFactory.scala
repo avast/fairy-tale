@@ -1,6 +1,7 @@
 package com.avast.fairytale.monitoring
 
 import java.time.Duration
+import java.util.concurrent.atomic.{AtomicLong, AtomicReference}
 
 import cats.effect.Sync
 import com.avast.metrics.api.Timer.TimeContext
@@ -76,6 +77,26 @@ class AvastMetricFactory[F[_]: Sync](monitor: Monitor) extends MetricFactory[F] 
     override def update(value: Long): F[Done] = F.delay {
       underlying.update(value)
       Done
+    }
+  }
+
+  override def gauge(name: String): GaugeFactory[F] = new GaugeFactory[F] {
+    override def long: Gauge[F, Long] = new Gauge[F, Long] {
+      private[this] val valueRef = new AtomicLong()
+      monitor.gauge(name)(() => valueRef.get())
+      override def set(value: Long): F[Done] = F.delay {
+        valueRef.set(value)
+        Done
+      }
+    }
+
+    override def double: Gauge[F, Double] = new Gauge[F, Double] {
+      private[this] val valueRef = new AtomicReference(0.0)
+      monitor.gauge(name)(() => valueRef.get())
+      override def set(value: Double): F[Done] = F.delay {
+        valueRef.set(value)
+        Done
+      }
     }
   }
 

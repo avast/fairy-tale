@@ -17,6 +17,8 @@ trait MetricFactory[F[_]] {
   def timer(name: String): Timer[F]
   def histogram(name: String): Histogram[F]
 
+  def gauge(name: String): GaugeFactory[F]
+
 }
 
 object MetricFactory {
@@ -37,8 +39,9 @@ object MetricFactory {
 
       override def histogram(name: String): Histogram[G] = FunctorK[Histogram].mapK(namedFactory.histogram(name))(fk)
 
+      override def gauge(name: String): GaugeFactory[G] = FunctorK[GaugeFactory].mapK(namedFactory.gauge(name))(fk)
     }
-    
+
     override def named(name: String): MetricFactory[G] = {
       val namedFactory = originalFactory.named(name)
       new Proxy(namedFactory)
@@ -57,6 +60,7 @@ object MetricFactory {
 
     override def timer(name: String): Timer[G] = FunctorK[Timer].mapK(originalFactory.timer(name))(fk)
 
+    override def gauge(name: String): GaugeFactory[G] = FunctorK[GaugeFactory].mapK(originalFactory.gauge(name))(fk)
   }
 
   implicit val functorKForMetricFactory: FunctorK[MetricFactory] = new FunctorK[MetricFactory] {
