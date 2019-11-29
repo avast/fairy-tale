@@ -22,7 +22,7 @@ class NoOpMetricFactory[F[_]: Sync] extends MetricFactory[F] {
 
   override def histogram(name: String): Histogram[F] = new NoOpHistogram
 
-  override def gauge(name: String): GaugeFactory[F] = new NoOpGaugeFactory
+  override def gauge: GaugeFactory[F] = new NoOpGaugeFactory
 }
 
 private class NoOpMeter[F[_]: Sync] extends Meter[F] {
@@ -70,9 +70,9 @@ private class NoOpHistogram[F[_]: Sync] extends Histogram[F] {
 }
 
 private class NoOpGaugeFactory[F[_]: Sync] extends GaugeFactory[F] {
-  override def long: Gauge[F, Long] = new NoOpGauge
+  override def long(name: String): Gauge[F, Long] = new NoOpGauge
 
-  override def double: Gauge[F, Double] = new NoOpGauge
+  override def double(name: String): Gauge[F, Double] = new NoOpGauge
 }
 
 private class NoOpGauge[F[_]: Sync, T] extends Gauge[F, T] {
