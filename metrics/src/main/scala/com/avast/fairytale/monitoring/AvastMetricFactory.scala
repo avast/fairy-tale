@@ -80,8 +80,8 @@ class AvastMetricFactory[F[_]: Sync](monitor: Monitor) extends MetricFactory[F] 
     }
   }
 
-  override def gauge(name: String): GaugeFactory[F] = new GaugeFactory[F] {
-    override def long: Gauge[F, Long] = new Gauge[F, Long] {
+  override def gauge: GaugeFactory[F] = new GaugeFactory[F] {
+    override def long(name: String): Gauge[F, Long] = new Gauge[F, Long] {
       private[this] val valueRef = new AtomicLong()
       monitor.gauge(name)(() => valueRef.get())
       override def set(value: Long): F[Done] = F.delay {
@@ -90,7 +90,7 @@ class AvastMetricFactory[F[_]: Sync](monitor: Monitor) extends MetricFactory[F] 
       }
     }
 
-    override def double: Gauge[F, Double] = new Gauge[F, Double] {
+    override def double(name: String): Gauge[F, Double] = new Gauge[F, Double] {
       private[this] val valueRef = new AtomicReference(0.0)
       monitor.gauge(name)(() => valueRef.get())
       override def set(value: Double): F[Done] = F.delay {
