@@ -3,7 +3,7 @@
 sbt test &&
   if $(test ${TRAVIS_REPO_SLUG} == "avast/fairy-tale" && test ${TRAVIS_PULL_REQUEST} == "false" && test "$TRAVIS_TAG" != ""); then
     export VERSION=$TRAVIS_TAG
-    sbt publish
+    sbt +publish
   else
     exit 0 # skipping publish, it's regular build
   fi
