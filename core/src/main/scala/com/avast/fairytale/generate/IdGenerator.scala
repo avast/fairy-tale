@@ -4,8 +4,8 @@ import java.security.SecureRandom
 import java.util.UUID
 import java.util.concurrent.ThreadLocalRandom
 
-import cats.{Eval, Functor}
-
+import cats.tagless.FunctorK
+import cats.{Eval, Functor, ~>}
 
 
 trait IdGenerator[F[_], A] {
@@ -19,6 +19,12 @@ trait IdGenerator[F[_], A] {
 }
 
 object IdGenerator {
+
+  implicit def functorK[A]: FunctorK[IdGenerator[*[_], A]] = new FunctorK[IdGenerator[*[_], A]] {
+    def mapK[F[_], G[_]](af: IdGenerator[F, A])(fk: F ~> G): IdGenerator[G, A] = new IdGenerator[G, A]{
+      override def generate: G[A] = fk(af.generate)
+    }
+  } 
 
   val uuid: IdGenerator[Eval, UUID] = new IdGenerator[Eval, UUID] {
     override def generate: Eval[UUID] = Eval.always(UUID.randomUUID())
