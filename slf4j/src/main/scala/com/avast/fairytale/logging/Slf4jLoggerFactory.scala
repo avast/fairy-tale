@@ -2,7 +2,7 @@ package com.avast.fairytale.logging
 
 import cats.effect.Sync
 
-import scala.language.higherKinds
+
 
 class Slf4jLoggerFactory[F[_]: Sync] extends LoggerFactory[F] {
 

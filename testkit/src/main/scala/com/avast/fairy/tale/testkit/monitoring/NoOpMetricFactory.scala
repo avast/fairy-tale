@@ -6,7 +6,7 @@ import cats.Applicative
 import com.avast.fairytale.monitoring._
 import com.avast.utils2.Done
 
-import scala.language.higherKinds
+
 
 class NoOpMetricFactory[F[_]: Applicative] extends MetricFactory[F] {
 

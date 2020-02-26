@@ -3,7 +3,8 @@ import Dependencies._
 lazy val root = (project in file(".")).settings(
   name := "fairy-tale",
   publish := {},
-  publishLocal := {}
+  publishLocal := {},
+  crossScalaVersions := Nil
 ).aggregate(core, metrics, monix, slf4j, testkit)
 
 lazy val core = (project in file("core")).settings(
@@ -86,15 +87,28 @@ lazy val commonSettings = Seq(
 
 lazy val scalaSettings = Seq(
   scalaVersion := "2.12.8",
-  scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation", "-Xlint", "-Xfatal-warnings", "-Ywarn-value-discard"),
+  crossScalaVersions := List("2.12.8", "2.13.1"),
+  scalacOptions ++= Seq("-feature", "-unchecked", "-deprecation", "-Xlint", "-Xfatal-warnings", "-Ywarn-value-discard", "-language:higherKinds"),
   libraryDependencies ++= Seq(
     cats,
     catsEffect,
     simulacrum,
     mainecoonCore,
-    mainecoonMacros % CompileTime,
-    scalaTest
+    scalaTest,
+    silencerLib
   ),
-  addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.9"),
-  addCompilerPlugin("org.scalameta" % "paradise" % "3.0.0-M11" cross CrossVersion.full)
+  addCompilerPlugin(silencerPlugin),
+  addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.0" cross CrossVersion.full),
+  scalacOptions ++= {
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, n)) if n >= 13 => "-Ymacro-annotations" :: Nil
+      case _ => Nil
+    }
+  },
+  libraryDependencies ++= {
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, n)) if n >= 13 => Nil
+      case _ => compilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full) :: Nil
+    }
+  }
 )

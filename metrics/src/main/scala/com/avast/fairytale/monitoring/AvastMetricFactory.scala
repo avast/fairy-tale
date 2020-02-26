@@ -8,7 +8,7 @@ import com.avast.metrics.api.Timer.TimeContext
 import com.avast.metrics.scalaapi.Monitor
 import com.avast.utils2.Done
 
-import scala.language.higherKinds
+
 
 class AvastMetricFactory[F[_]: Sync](monitor: Monitor) extends MetricFactory[F] with AutoCloseable {
 

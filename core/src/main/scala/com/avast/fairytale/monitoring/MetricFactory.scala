@@ -1,10 +1,10 @@
 package com.avast.fairytale.monitoring
 
+import cats.tagless.FunctorK
 import cats.~>
-import mainecoon.FunctorK
 import simulacrum.typeclass
 
-import scala.language.{higherKinds, implicitConversions}
+import scala.language.{implicitConversions}
 
 @typeclass
 trait MetricFactory[F[_]] {

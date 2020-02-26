@@ -1,10 +1,10 @@
 package com.avast.fairytale.monitoring
 
+import cats.tagless.FunctorK
 import cats.~>
 import com.avast.utils2.Done
-import mainecoon.FunctorK
 
-import scala.language.higherKinds
+
 
 trait GaugeFactory[F[_]] {
   def long(name: String): Gauge[F, Long]

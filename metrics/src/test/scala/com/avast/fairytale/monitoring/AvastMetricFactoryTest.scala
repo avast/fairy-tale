@@ -7,9 +7,9 @@ import com.avast.metrics.dropwizard.{JmxMetricsMonitor, TreeObjectNameFactory}
 import com.avast.metrics.scalaapi.Monitor
 import com.avast.utils2.Done
 import com.codahale.metrics.MetricRegistry
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class AvastMetricFactoryTest extends FunSuite {
+class AvastMetricFactoryTest extends AnyFunSuite {
 
   test("basic functionality of metrics") {
     val registry = new MetricRegistry

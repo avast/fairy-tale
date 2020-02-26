@@ -1,10 +1,10 @@
 package com.avast.fairytale.logging
 
 import cats._
-import mainecoon.FunctorK
+import cats.tagless.FunctorK
 import simulacrum.typeclass
 
-import scala.language.{higherKinds, implicitConversions}
+import scala.language.implicitConversions
 import scala.reflect.ClassTag
 
 @typeclass

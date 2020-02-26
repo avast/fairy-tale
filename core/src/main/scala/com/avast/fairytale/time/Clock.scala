@@ -3,10 +3,10 @@ package com.avast.fairytale.time
 import java.time.Instant
 
 import cats.Eval
-import mainecoon.autoFunctorK
+import cats.tagless.autoFunctorK
 import simulacrum.typeclass
 
-import scala.language.{higherKinds, implicitConversions}
+import scala.language.{implicitConversions}
 
 @typeclass
 @autoFunctorK(autoDerivation = false)
