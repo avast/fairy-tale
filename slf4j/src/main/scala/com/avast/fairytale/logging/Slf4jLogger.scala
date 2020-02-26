@@ -3,8 +3,9 @@ package com.avast.fairytale.logging
 import cats.effect.Sync
 import com.avast.fairytale.logging.Slf4jLogger.formatMessage
 import com.avast.utils2.Done
+import com.github.ghik.silencer.silent
 
-import scala.language.higherKinds
+
 
 class Slf4jLogger[F[_]: Sync](slf4j: org.slf4j.Logger) extends Logger[F] {
 
@@ -77,7 +78,9 @@ class Slf4jLogger[F[_]: Sync](slf4j: org.slf4j.Logger) extends Logger[F] {
 
 object Slf4jLogger {
 
-  private def formatMessage(parts: Seq[String]): String = parts.map(StringContext.treatEscapes).mkString("{}")
+  private def formatMessage(parts: Seq[String]): String = parts.map(StringContext.processEscapes).mkString("{}")
+  
+  @silent //deprecated
   private def formatMessage(msg: Message): String = StringContext(msg.parts: _*).standardInterpolator(identity, msg.args)
 
 }

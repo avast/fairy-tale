@@ -1,9 +1,9 @@
 package com.avast.fairytale.monitoring
 
+import cats.tagless.autoFunctorK
 import com.avast.utils2.Done
-import mainecoon.autoFunctorK
 
-import scala.language.higherKinds
+
 
 @autoFunctorK(autoDerivation = false)
 trait Counter[F[_]] {

@@ -5,11 +5,9 @@ import java.util.UUID
 import java.util.concurrent.ThreadLocalRandom
 
 import cats.{Eval, Functor}
-import mainecoon.autoFunctorK
 
-import scala.language.higherKinds
 
-@autoFunctorK(autoDerivation = false)
+
 trait IdGenerator[F[_], A] {
 
   def generate: F[A]

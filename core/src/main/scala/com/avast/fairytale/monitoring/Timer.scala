@@ -5,9 +5,9 @@ import java.time.Duration
 import cats.Monad
 import cats.syntax.flatMap._
 import cats.syntax.functor._
-import mainecoon.autoFunctorK
+import cats.tagless.autoFunctorK
 
-import scala.language.higherKinds
+
 
 @autoFunctorK(autoDerivation = false)
 trait Timer[F[_]] {

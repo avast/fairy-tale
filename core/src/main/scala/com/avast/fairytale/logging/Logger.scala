@@ -1,10 +1,10 @@
 package com.avast.fairytale.logging
 
+import cats.tagless.autoFunctorK
 import com.avast.utils2.Done
-import mainecoon.autoFunctorK
 import simulacrum.typeclass
 
-import scala.language.{higherKinds, implicitConversions}
+import scala.language.implicitConversions
 
 @typeclass
 @autoFunctorK(autoDerivation = false)

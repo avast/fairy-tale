@@ -4,7 +4,7 @@ import cats.Applicative
 import com.avast.fairytale.logging.{Logger, LoggerFactory, Message}
 import com.avast.utils2.Done
 
-import scala.language.higherKinds
+
 
 class NoOpLoggerFactory[F[_]: Applicative] extends LoggerFactory[F] {
   override def make(name: String): Logger[F] = new NoOpLogger
